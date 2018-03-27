@@ -6,15 +6,15 @@
   (map function collection))
 
 
-(defmulti fmap (fn [function collection] [(type function)(type collection)]))
+(defmulti fmap (fn [function collection] [(type collection)]))
 
-(defmethod fmap [:default clojure.lang.PersistentVector] [function collection]
+(defmethod fmap [clojure.lang.PersistentVector] [function collection]
   (map function collection))
 
-(defmethod fmap [:default clojure.lang.IPersistentMap] [function collection]
+(defmethod fmap [clojure.lang.IPersistentMap] [function collection]
   (into {} (for [[key val] collection] [key (function val)])))
 
-(defmethod fmap [:default clojure.lang.PersistentList] [function collection]
+(defmethod fmap [clojure.lang.PersistentList] [function collection]
   (map function collection))
 
 
